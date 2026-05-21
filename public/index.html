@@ -1,1 +1,376 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lernaufgaben-Ersteller</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#eef1f6;color:#1a1a2e;font-size:15px}
+.wrap{max-width:820px;margin:0 auto;padding:20px 14px}
+.hdr{background:#1c3a5e;color:#fff;padding:18px 22px;border-radius:10px 10px 0 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.hdr h1{font-size:1.2rem;font-weight:700}.hdr p{font-size:.8rem;opacity:.75;margin-top:3px}
+.model-badge{background:rgba(255,255,255,.15);border-radius:6px;padding:5px 10px;font-size:.75rem;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.model-badge select{background:transparent;border:none;color:#fff;font:inherit;font-size:.75rem;cursor:pointer;outline:none}
+.model-badge select option{color:#1a1a2e;background:#fff}
+.card{background:#fff;padding:24px 22px;border-radius:0 0 10px 10px;box-shadow:0 2px 14px rgba(0,0,0,.08)}
+.field{margin-bottom:16px}
+label.lbl{display:block;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#555;margin-bottom:5px}
+input[type=text],textarea,select{width:100%;padding:9px 11px;border:1.5px solid #d8dce6;border-radius:7px;font:inherit;color:#1a1a2e;background:#fafbfc;transition:border .18s;resize:vertical}
+input[type=text]:focus,textarea:focus,select:focus{outline:none;border-color:#1c3a5e;background:#fff}
+textarea{min-height:80px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.sf-group{display:flex;gap:8px;flex-wrap:wrap}
+.sf{display:flex;align-items:center;gap:6px;padding:7px 12px;border:1.5px solid #d8dce6;border-radius:7px;background:#fafbfc;cursor:pointer;font-size:.88rem;user-select:none;transition:all .15s}
+.sf input{width:auto;margin:0;cursor:pointer}.sf:has(input:checked){border-color:#1c3a5e;background:#eaf0f9;font-weight:600}
+hr.div{border:none;border-top:1.5px solid #edf0f5;margin:18px 0}
+/* Template upload */
+.tpl-zone{display:flex;align-items:center;gap:10px;border:2px dashed #c0cfe8;border-radius:9px;background:#f8faff;padding:11px 15px;cursor:pointer;transition:all .2s;margin-bottom:14px;flex-wrap:wrap}
+.tpl-zone:hover{border-color:#1c3a5e;background:#eef3fb}
+.tpl-zone input[type=file]{display:none}
+.tpl-text{flex:1;font-size:.84rem;color:#5a6a8a}.tpl-text.ok{color:#2e7d32;font-weight:600}
+.tpl-rm{font-size:.78rem;background:none;border:none;color:#c62828;cursor:pointer;padding:3px 7px;border-radius:5px;display:none}
+.tpl-rm:hover{background:#fde}
+/* KI section */
+.ki-section{background:#f3f6ff;border:1.5px solid #c0cfe8;border-radius:10px;padding:16px 18px;margin-bottom:20px}
+.ki-title{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#3a4a6b;margin-bottom:12px}
+.gen-group{display:flex;gap:8px;flex-wrap:wrap;margin-top:2px}
+.gen-chip{display:flex;align-items:center;gap:5px;padding:6px 13px;border:1.5px solid #b0c4de;border-radius:20px;background:#fff;cursor:pointer;font-size:.85rem;user-select:none;transition:all .15s;color:#2c3e6b}
+.gen-chip input{width:auto;margin:0;cursor:pointer;accent-color:#1c3a5e}
+.gen-chip:has(input:checked){border-color:#1c3a5e;background:#1c3a5e;color:#fff;font-weight:600}
+.btn{padding:9px 18px;border:none;border-radius:7px;font:600 .88rem inherit;cursor:pointer;transition:all .18s}
+.btn-ai{background:#1c3a5e;color:#fff;white-space:nowrap;padding:10px 18px}
+.btn-ai:hover{background:#152d4a}.btn-ai:disabled{background:#9ea3b5;cursor:default}
+.foot{display:flex;align-items:center;justify-content:flex-end;gap:12px;margin-top:20px;padding-top:18px;border-top:1.5px solid #edf0f5;flex-wrap:wrap}
+.btn-exp{background:#1c3a5e;color:#fff;padding:11px 26px;font-size:.95rem;border-radius:8px}
+.btn-exp:hover{background:#152d4a}
+.status{font-size:.8rem;flex:1}.status.load{color:#1c3a5e}.status.ok{color:#2e7d32}.status.err{color:#c62828}
+.init-note{font-size:.78rem;color:#888;text-align:center;padding:6px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hdr">
+    <div>
+      <h1>📄 Lernaufgaben-Ersteller</h1>
+      <p>Vorlage hochladen · Felder ausfüllen · KI-Unterstützung · fertiges .docx herunterladen</p>
+    </div>
+    <div class="model-badge">
+      🧠 <select id="modelSelect"><option value="">Lade Modelle …</option></select>
+    </div>
+  </div>
+  <div class="card">
 
+    <!-- Template Upload -->
+    <label class="tpl-zone" for="tplFile">
+      <span style="font-size:1.2rem">📎</span>
+      <span class="tpl-text" id="tplText">Vorlage (.docx) hochladen – Formatierungen werden übernommen</span>
+      <button class="tpl-rm" id="tplRm" onclick="clearTemplate(event)">✕ Entfernen</button>
+      <input type="file" id="tplFile" accept=".docx" onchange="handleTemplate(this)">
+    </label>
+
+    <!-- KI Section -->
+    <div class="ki-section">
+      <div class="ki-title">🤖 KI-Unterstützung</div>
+      <div class="field">
+        <label class="lbl">Thema / Inhaltsbeschreibung</label>
+        <textarea id="kiInput" style="min-height:70px" placeholder="z.B. Fotosynthese – Licht- und Dunkelreaktion, Calvin-Zyklus, Chloroplasten. Niveau: Schwerpunktfach Biologie, 4. Klasse Gymnasium …"></textarea>
+      </div>
+      <div class="field" style="margin-bottom:0">
+        <label class="lbl">Was soll generiert werden?</label>
+        <div class="gen-group">
+          <label class="gen-chip"><input type="checkbox" value="titel" checked> Titel</label>
+          <label class="gen-chip"><input type="checkbox" value="lernziele" checked> Lernziele</label>
+          <label class="gen-chip"><input type="checkbox" value="hintergrund" checked> Hintergrund</label>
+          <label class="gen-chip"><input type="checkbox" value="aufgaben" checked> Aufgaben</label>
+        </div>
+      </div>
+      <div class="field" style="margin-top:14px;margin-bottom:0">
+        <label class="lbl" style="display:flex;justify-content:space-between;align-items:baseline">
+          <span>Verbesserungshinweise</span>
+          <span style="font-weight:400;text-transform:none;letter-spacing:0;color:#888;font-size:.75rem">optional · für Iteration</span>
+        </label>
+        <textarea id="kiRefine" style="min-height:55px" placeholder="z.B. «Aufgaben anspruchsvoller, mit Rechenaufgabe» · «Hintergrundtext kürzer» …"></textarea>
+      </div>
+      <div style="margin-top:14px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+        <button class="btn btn-ai" id="aiBtn" onclick="generateWithAI()">✨ Ausgewählte Felder generieren</button>
+        <span class="status" id="msg"></span>
+      </div>
+    </div>
+
+    <hr class="div" style="margin-top:4px">
+
+    <div class="field">
+      <label class="lbl">Titel *</label>
+      <input type="text" id="titel" placeholder="z.B. Fotosynthese – Licht- und Dunkelreaktionen">
+    </div>
+    <div class="field">
+      <label class="lbl">Lernziele</label>
+      <textarea id="lernziele" placeholder="Die SuS können …&#10;Die SuS kennen …&#10;Die SuS verstehen …"></textarea>
+    </div>
+    <div class="grid2">
+      <div class="field">
+        <label class="lbl">Sozialform</label>
+        <div class="sf-group">
+          <label class="sf"><input type="checkbox" value="EA"> Einzelarbeit</label>
+          <label class="sf"><input type="checkbox" value="PA"> Partnerarbeit</label>
+          <label class="sf"><input type="checkbox" value="GA"> Gruppenarbeit</label>
+          <label class="sf"><input type="checkbox" value="PL"> Plenum</label>
+        </div>
+      </div>
+      <div class="field">
+        <label class="lbl">Lernort</label>
+        <input type="text" id="lernort" placeholder="z.B. Schulzimmer, Labor, draussen">
+      </div>
+    </div>
+    <div class="grid2">
+      <div class="field">
+        <label class="lbl">Zeit</label>
+        <input type="text" id="zeit" placeholder="z.B. 45 min / 2 Lektionen">
+      </div>
+      <div class="field">
+        <label class="lbl">Produkte</label>
+        <input type="text" id="produkte" placeholder="z.B. Ausgefülltes Arbeitsblatt">
+      </div>
+    </div>
+    <div class="field">
+      <label class="lbl">Material / Hilfsmittel</label>
+      <textarea id="material" style="min-height:65px" placeholder="z.B. Schulbuch S. 42–45&#10;Periodensystem&#10;Tablet oder Laptop"></textarea>
+    </div>
+    <hr class="div">
+    <div class="field">
+      <label class="lbl">Hintergrund</label>
+      <textarea id="hintergrund" style="min-height:110px" placeholder="Fachlicher Hintergrundtext …"></textarea>
+    </div>
+    <div class="field">
+      <label class="lbl">Aufgaben</label>
+      <textarea id="aufgaben" style="min-height:140px" placeholder="1. Beschreibe …&#10;2. Erkläre …&#10;3. Berechne …&#10;4. Diskutiere …"></textarea>
+    </div>
+    <div class="foot">
+      <button class="btn btn-exp" onclick="exportDocx()">⬇ Als .docx exportieren</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const setMsg = (t,c='') => { $('msg').textContent=t; $('msg').className='status '+c; };
+
+// ── Modelle laden (über eigenen Server-Proxy) ─────────────────────────────
+async function loadModels() {
+  const sel = $('modelSelect');
+  try {
+    const res  = await fetch('/api/models');
+    const json = await res.json();
+    if (json.error) throw new Error(json.error.message);
+    const rank = id => /sonnet/i.test(id)?0:/opus/i.test(id)?1:2;
+    const models = (json.data||[])
+      .filter(m => /claude-(sonnet|opus|haiku)/i.test(m.id))
+      .sort((a,b) => rank(a.id)-rank(b.id) || b.id.localeCompare(a.id));
+    sel.innerHTML = '';
+    models.forEach(m => {
+      const o = document.createElement('option');
+      o.value = m.id; o.textContent = m.id;
+      sel.appendChild(o);
+    });
+  } catch(e) {
+    sel.innerHTML = `<option value="">Fehler: ${e.message}</option>`;
+  }
+}
+
+function getModel() {
+  const m = $('modelSelect').value;
+  if (!m) { setMsg('Kein Modell verfügbar','err'); return null; }
+  return m;
+}
+
+// ── Template handling ─────────────────────────────────────────────────────
+let tplData = {};
+let P = { top:1134,right:1134,bottom:1134,left:1134,pgW:11906,pgH:16838,titleSz:30,headingSz:24,bodySz:20,col1W:2200,col2W:6800 };
+
+const DEFAULT_STYLES =
+`<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<w:styles xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
+  <w:docDefaults><w:rPrDefault><w:rPr>
+    <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+    <w:lang w:val="de-CH"/>
+  </w:rPr></w:rPrDefault></w:docDefaults>
+</w:styles>`;
+
+async function handleTemplate(input) {
+  const file = input.files[0]; if (!file) return;
+  const txt = $('tplText');
+  txt.textContent = 'Lese Vorlage …'; txt.className = 'tpl-text';
+  try {
+    const zip = new JSZip(), loaded = await zip.loadAsync(file);
+    const rd = async p => loaded.files[p] ? loaded.files[p].async('string') : null;
+    const docXml = await rd('word/document.xml') || '';
+    const stylesXml = await rd('word/styles.xml');
+    const themeXml  = await rd('word/theme/theme1.xml');
+    const params = extractParams(docXml, stylesXml);
+    tplData = { stylesXml, themeXml, params };
+    Object.assign(P, params);
+    txt.innerHTML = `✓ <strong>${file.name}</strong> – Formatierung wird übernommen`;
+    txt.className = 'tpl-text ok';
+    $('tplRm').style.display = 'inline';
+  } catch(e) { txt.textContent = 'Fehler: ' + e.message; }
+}
+
+function clearTemplate(e) {
+  e.preventDefault();
+  tplData = {};
+  P = { top:1134,right:1134,bottom:1134,left:1134,pgW:11906,pgH:16838,titleSz:30,headingSz:24,bodySz:20,col1W:2200,col2W:6800 };
+  $('tplFile').value = '';
+  $('tplText').textContent = 'Vorlage (.docx) hochladen – Formatierungen werden übernommen';
+  $('tplText').className = 'tpl-text';
+  $('tplRm').style.display = 'none';
+}
+
+function extractParams(docXml, stylesXml) {
+  const p = {...P};
+  const mgr = docXml.match(/<w:pgMar\b([^>]*?)\/?>/);
+  if (mgr) for (const k of ['top','right','bottom','left']) {
+    const m = mgr[1].match(new RegExp(`w:${k}="(\\d+)"`));
+    if (m) p[k] = parseInt(m[1]);
+  }
+  const psz = docXml.match(/<w:pgSz\b([^>]*?)\/?>/);
+  if (psz) {
+    const w=psz[1].match(/w:w="(\d+)"/)?.[1], h=psz[1].match(/w:h="(\d+)"/)?.[1];
+    if(w) p.pgW=parseInt(w); if(h) p.pgH=parseInt(h);
+  }
+  const cols = [...docXml.matchAll(/<w:gridCol\b[^>]*?w:w="(\d+)"/g)];
+  if (cols.length>=2) {
+    p.col1W=parseInt(cols[0][1]);
+    p.col2W=cols.slice(1).reduce((s,c)=>s+parseInt(c[1]),0);
+  } else {
+    const tw=p.pgW-p.left-p.right; p.col1W=Math.round(tw*.25); p.col2W=tw-p.col1W;
+  }
+  if (stylesXml) {
+    const nm=stylesXml.match(/<w:style\b[^>]*w:styleId="Normal"[\s\S]*?<\/w:style>/);
+    if (nm) { const sz=nm[0].match(/<w:sz\b[^>]*w:val="(\d+)"/)?.[1];
+      if(sz){const s=parseInt(sz); p.bodySz=s; p.titleSz=Math.round(s*1.5); p.headingSz=Math.round(s*1.2);}
+    }
+  }
+  return p;
+}
+
+// ── Form helpers ──────────────────────────────────────────────────────────
+function getData() {
+  const sf=[...document.querySelectorAll('.sf input:checked')].map(c=>c.value).join(' / ')||'–';
+  return { titel:$('titel').value.trim(), lernziele:$('lernziele').value.trim(),
+    sozialform:sf, lernort:$('lernort').value.trim(), zeit:$('zeit').value.trim(),
+    material:$('material').value.trim(), produkte:$('produkte').value.trim(),
+    hintergrund:$('hintergrund').value.trim(), aufgaben:$('aufgaben').value.trim() };
+}
+
+// ── KI Generation ─────────────────────────────────────────────────────────
+async function generateWithAI() {
+  const model = getModel(); if (!model) return;
+  const desc = $('kiInput').value.trim();
+  if (!desc) { setMsg('Thema/Inhaltsbeschreibung fehlt','err'); return; }
+  const sel = [...document.querySelectorAll('.gen-chip input:checked')].map(c=>c.value);
+  if (!sel.length) { setMsg('Mindestens ein Feld wählen','err'); return; }
+  $('aiBtn').disabled=true; setMsg('Generiere …','load');
+
+  const fi = {
+    titel:      'TITEL:\nEin prägnanter Titel (max. 1 Zeile).',
+    lernziele:  'LERNZIELE:\n3–5 Lernziele im Format "Die SuS können/kennen/verstehen …", eine pro Zeile.',
+    hintergrund:'HINTERGRUND:\nKnapper fachlicher Hintergrundtext (3–5 Sätze).',
+    aufgaben:   'AUFGABEN:\n4–6 variantenreiche Aufgaben (nummeriert als "1. …", "2. …" usw.).'
+  };
+  const refinement=$('kiRefine').value.trim();
+  const exCtx=[];
+  if(!sel.includes('titel')     && $('titel').value.trim())     exCtx.push(`Titel: ${$('titel').value.trim()}`);
+  if(!sel.includes('lernziele') && $('lernziele').value.trim()) exCtx.push(`Lernziele:\n${$('lernziele').value.trim()}`);
+  const curCtx=[];
+  if(refinement){
+    const cur=getData();
+    if(sel.includes('titel')       && cur.titel)       curCtx.push(`Aktueller Titel:\n${cur.titel}`);
+    if(sel.includes('lernziele')   && cur.lernziele)   curCtx.push(`Aktuelle Lernziele:\n${cur.lernziele}`);
+    if(sel.includes('hintergrund') && cur.hintergrund) curCtx.push(`Aktueller Hintergrund:\n${cur.hintergrund}`);
+    if(sel.includes('aufgaben')    && cur.aufgaben)    curCtx.push(`Aktuelle Aufgaben:\n${cur.aufgaben}`);
+  }
+  const prompt =
+    `Du bist Chemie- und Biologielehrer an einem Schweizer Gymnasium.\n`+
+    `Themen-/Inhaltsbeschreibung:\n«${desc}»\n`+
+    (exCtx.length  ? `\nBestehender Kontext:\n${exCtx.join('\n')}\n` : '')+
+    (curCtx.length ? `\nBisheriger Inhalt zur Überarbeitung:\n${curCtx.join('\n\n')}\n` : '')+
+    (refinement    ? `\nVerbesserungsanweisung:\n${refinement}\n` : '')+
+    `\n${refinement?'Überarbeite':'Erstelle'} auf Deutsch:\n\n`+
+    sel.map(k=>fi[k]).join('\n\n')+
+    `\n\nNur das angeforderte Format, keine Einleitung, kein Markdown:\n`+
+    sel.map(k=>`${k.toUpperCase()}:\n[Inhalt]`).join('\n\n');
+  try {
+    const res  = await fetch('/api/messages', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ model, max_tokens:1000, messages:[{role:'user',content:prompt}] })
+    });
+    const json = await res.json();
+    if (json.error) throw new Error(json.error.message);
+    const text = json.content?.map(b=>b.text||'').join('')||'';
+    const extract = key => {
+      const re=new RegExp(`${key.toUpperCase()}:\\s*([\\s\\S]*?)(?=\\n[A-ZÄÖÜ]{3,}:|$)`,'i');
+      return text.match(re)?.[1]?.trim()||null;
+    };
+    let filled=[];
+    for(const key of sel){const v=extract(key); if(v){$(key).value=v; filled.push(key);}}
+    setMsg(filled.length?`✓ Generiert: ${filled.join(', ')} – bitte prüfen.`:'Antwort konnte nicht geparst werden.',filled.length?'ok':'err');
+  } catch(e){ setMsg('Fehler: '+e.message,'err'); }
+  $('aiBtn').disabled=false;
+}
+
+// ── OOXML ─────────────────────────────────────────────────────────────────
+const X = s=>(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const emptyP=()=>`<w:p><w:pPr><w:spacing w:after="80"/></w:pPr><w:r><w:rPr><w:sz w:val="${P.bodySz}"/></w:rPr><w:t> </w:t></w:r></w:p>`;
+const bodyParas=text=>{
+  const lines=(text||'').split('\n');
+  if(!lines.some(l=>l.trim())) return emptyP();
+  return lines.map(l=>`<w:p><w:pPr><w:spacing w:after="80"/></w:pPr><w:r><w:rPr><w:sz w:val="${P.bodySz}"/><w:szCs w:val="${P.bodySz}"/></w:rPr><w:t xml:space="preserve">${X(l)||' '}</w:t></w:r></w:p>`).join('');
+};
+const heading=text=>`<w:p><w:pPr><w:spacing w:before="280" w:after="80"/></w:pPr><w:r><w:rPr><w:b/><w:sz w:val="${P.headingSz}"/><w:szCs w:val="${P.headingSz}"/></w:rPr><w:t xml:space="preserve">${X(text)}</w:t></w:r></w:p>`;
+const tblRow=(label,value)=>{
+  const cell=(w,c)=>`<w:tc><w:tcPr><w:tcW w:w="${w}" w:type="dxa"/><w:tcMar><w:top w:w="80" w:type="dxa"/><w:left w:w="100" w:type="dxa"/><w:bottom w:w="80" w:type="dxa"/><w:right w:w="100" w:type="dxa"/></w:tcMar></w:tcPr>${c}</w:tc>`;
+  const lc=cell(P.col1W,`<w:p><w:pPr><w:spacing w:after="60"/></w:pPr><w:r><w:rPr><w:b/><w:sz w:val="${P.bodySz}"/><w:szCs w:val="${P.bodySz}"/></w:rPr><w:t xml:space="preserve">${X(label)}</w:t></w:r></w:p>`);
+  const cc=(value||'–').split('\n').map(l=>`<w:p><w:pPr><w:spacing w:after="60"/></w:pPr><w:r><w:rPr><w:sz w:val="${P.bodySz}"/><w:szCs w:val="${P.bodySz}"/></w:rPr><w:t xml:space="preserve">${X(l)||' '}</w:t></w:r></w:p>`).join('');
+  return `<w:tr>${lc}${cell(P.col2W,cc)}</w:tr>`;
+};
+
+function buildDocXML(d) {
+  const brd=tag=>`<w:${tag} w:val="single" w:sz="4" w:space="0" w:color="000000"/>`;
+  const borders=`<w:tblBorders>${['top','left','bottom','right','insideH','insideV'].map(brd).join('')}</w:tblBorders>`;
+  const tblW=P.col1W+P.col2W;
+  const table=`<w:tbl><w:tblPr><w:tblW w:w="${tblW}" w:type="dxa"/>${borders}</w:tblPr><w:tblGrid><w:gridCol w:w="${P.col1W}"/><w:gridCol w:w="${P.col2W}"/></w:tblGrid>${tblRow('Lernziele',d.lernziele||'–')}${tblRow('Sozialform',d.sozialform)}${tblRow('Lernort',d.lernort||'–')}${tblRow('Zeit',d.zeit||'–')}${tblRow('Material / Hilfsmittel',d.material||'–')}${tblRow('Produkte',d.produkte||'–')}</w:tbl>`;
+  const titlePara=`<w:p><w:pPr><w:jc w:val="center"/><w:spacing w:before="0" w:after="220"/></w:pPr><w:r><w:rPr><w:b/><w:sz w:val="${P.titleSz}"/><w:szCs w:val="${P.titleSz}"/></w:rPr><w:t>Lernaufgabe \u00AB${X(d.titel||'…')}\u00BB</w:t></w:r></w:p>`;
+  const sectPr=`<w:sectPr><w:pgSz w:w="${P.pgW}" w:h="${P.pgH}"/><w:pgMar w:top="${P.top}" w:right="${P.right}" w:bottom="${P.bottom}" w:left="${P.left}" w:header="0" w:footer="0"/></w:sectPr>`;
+  return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body>${titlePara}${table}${heading('Hintergrund:')}${bodyParas(d.hintergrund||'–')}${heading('Aufgaben:')}${bodyParas(d.aufgaben||'–')}${emptyP()}${sectPr}</w:body></w:document>`;
+}
+
+async function exportDocx() {
+  const d=getData();
+  if(!d.titel){alert('Bitte zuerst einen Titel eingeben.');return;}
+  try {
+    const stylesXml=tplData.stylesXml||DEFAULT_STYLES;
+    const hasTheme=!!tplData.themeXml;
+    const zip=new JSZip();
+    zip.file('[Content_Types].xml',
+      `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/><Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/>${hasTheme?'<Override PartName="/word/theme/theme1.xml" ContentType="application/vnd.openxmlformats-officedocument.theme+xml"/>':''}</Types>`);
+    zip.file('_rels/.rels',
+      `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>`);
+    zip.file('word/_rels/document.xml.rels',
+      `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>${hasTheme?'<Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/theme" Target="theme/theme1.xml"/>':''}</Relationships>`);
+    zip.file('word/document.xml', buildDocXML(d));
+    zip.file('word/styles.xml', stylesXml);
+    if(hasTheme) zip.file('word/theme/theme1.xml', tplData.themeXml);
+    const blob=await zip.generateAsync({type:'blob',mimeType:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);
+    a.download=`Lernaufgabe_${(d.titel.replace(/[^a-zA-Z0-9äöüÄÖÜ\- ]/g,'').trim()||'Neu').slice(0,50)}.docx`;
+    a.click(); URL.revokeObjectURL(a.href);
+  } catch(e){ alert('Export-Fehler: '+e.message); }
+}
+
+window.addEventListener('DOMContentLoaded', loadModels);
+</script>
+</body>
+</html>
