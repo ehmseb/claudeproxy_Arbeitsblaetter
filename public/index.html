@@ -593,10 +593,14 @@ const bodyParas=text=>{
     `<w:t xml:space="preserve">${X(l)||' '}</w:t></w:r></w:p>`).join('');
 };
 const heading=text=>{
+  // Same underline/color as title
   const pBdrXml=P.titleUnderlineVal==='pBdr'
     ?`<w:pBdr><w:bottom w:val="single" w:sz="6" w:space="1" w:color="${P.titleUnderlineColor||'auto'}"/></w:pBdr>`:'';
+  const uXml=P.titleUnderlineVal&&P.titleUnderlineVal!=='pBdr'
+    ?`<w:u w:val="${P.titleUnderlineVal}"${P.titleUnderlineColor?` w:color="${P.titleUnderlineColor}"`:''}/>`:'';
+  const cXml=P.titleColor&&P.titleColor!=='000000'?`<w:color w:val="${P.titleColor}"/>`:'';
   return `<w:p><w:pPr><w:spacing w:before="280" w:after="80"/>${pBdrXml}</w:pPr><w:r>`+
-    rPr(`<w:b/><w:sz w:val="${P.headingSz}"/><w:szCs w:val="${P.headingSz}"/>`)+
+    rPr(`<w:b/>${cXml}${uXml}<w:sz w:val="${P.headingSz}"/><w:szCs w:val="${P.headingSz}"/>`)+
     `<w:t xml:space="preserve">${X(text)}</w:t></w:r></w:p>`;
 };
 const tblRow=(label,value)=>{
