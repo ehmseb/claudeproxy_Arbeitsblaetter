@@ -8,10 +8,10 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#eef1f6;color:#1a1a2e;font-size:15px}
-.wrap{max-width:820px;margin:0 auto;padding:20px 14px}
+.wrap{max-width:840px;margin:0 auto;padding:20px 14px}
 .hdr{background:#1c3a5e;color:#fff;padding:18px 22px;border-radius:10px 10px 0 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
 .hdr h1{font-size:1.2rem;font-weight:700}.hdr p{font-size:.8rem;opacity:.75;margin-top:3px}
-.model-badge{background:rgba(255,255,255,.15);border-radius:6px;padding:5px 10px;font-size:.75rem;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.model-badge{background:rgba(255,255,255,.15);border-radius:6px;padding:5px 10px;font-size:.75rem;display:flex;align-items:center;gap:8px}
 .model-badge select{background:transparent;border:none;color:#fff;font:inherit;font-size:.75rem;cursor:pointer;outline:none}
 .model-badge select option{color:#1a1a2e;background:#fff}
 .card{background:#fff;padding:24px 22px;border-radius:0 0 10px 10px;box-shadow:0 2px 14px rgba(0,0,0,.08)}
@@ -25,13 +25,43 @@ textarea{min-height:80px}
 .sf{display:flex;align-items:center;gap:6px;padding:7px 12px;border:1.5px solid #d8dce6;border-radius:7px;background:#fafbfc;cursor:pointer;font-size:.88rem;user-select:none;transition:all .15s}
 .sf input{width:auto;margin:0;cursor:pointer}.sf:has(input:checked){border-color:#1c3a5e;background:#eaf0f9;font-weight:600}
 hr.div{border:none;border-top:1.5px solid #edf0f5;margin:18px 0}
+
 /* Template upload */
-.tpl-zone{display:flex;align-items:center;gap:10px;border:2px dashed #c0cfe8;border-radius:9px;background:#f8faff;padding:11px 15px;cursor:pointer;transition:all .2s;margin-bottom:14px;flex-wrap:wrap}
+.tpl-zone{display:flex;align-items:center;gap:10px;border:2px dashed #c0cfe8;border-radius:9px;background:#f8faff;padding:11px 15px;cursor:pointer;transition:all .2s;flex-wrap:wrap}
 .tpl-zone:hover{border-color:#1c3a5e;background:#eef3fb}
 .tpl-zone input[type=file]{display:none}
 .tpl-text{flex:1;font-size:.84rem;color:#5a6a8a}.tpl-text.ok{color:#2e7d32;font-weight:600}
 .tpl-rm{font-size:.78rem;background:none;border:none;color:#c62828;cursor:pointer;padding:3px 7px;border-radius:5px;display:none}
 .tpl-rm:hover{background:#fde}
+
+/* Formatierungseinstellungen */
+.fmt-section{border:1.5px solid #d0d8e8;border-radius:9px;margin:12px 0 14px;overflow:hidden}
+.fmt-section summary{padding:10px 15px;cursor:pointer;font-size:.8rem;font-weight:700;color:#3a4a6b;background:#f4f7fb;display:flex;align-items:center;justify-content:space-between;list-style:none;user-select:none}
+.fmt-section summary::-webkit-details-marker{display:none}
+.fmt-section summary::after{content:'▾';font-size:.9rem;color:#999}
+.fmt-section[open] summary{border-bottom:1.5px solid #d0d8e8}
+.fmt-section[open] summary::after{content:'▴'}
+.fmt-tag{font-size:.7rem;font-weight:400;color:#888;margin-left:8px}
+.fmt-body{padding:14px 16px}
+.fmt-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 16px}
+.fmt-full{grid-column:1/-1}
+.fmt-field label{display:block;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#666;margin-bottom:4px}
+.fmt-field select,.fmt-field input[type=text]{padding:7px 9px;font:inherit;font-size:.83rem}
+.fmt-color-row{display:flex;gap:8px;align-items:center}
+.fmt-color-row input[type=color]{width:40px;height:34px;padding:2px 3px;border:1.5px solid #d8dce6;border-radius:6px;cursor:pointer;flex-shrink:0}
+.fmt-color-row input[type=text]{flex:1;font-size:.8rem;font-family:monospace}
+.fmt-check-row{display:flex;align-items:center;gap:8px;padding-top:18px}
+.fmt-check-row input[type=checkbox]{width:auto;accent-color:#1c3a5e;width:16px;height:16px;cursor:pointer}
+.fmt-check-row label{font-size:.85rem;cursor:pointer;font-weight:500}
+.fmt-divider{grid-column:1/-1;border:none;border-top:1px solid #e8edf5;margin:4px 0}
+.fmt-ai-row{grid-column:1/-1;display:flex;gap:8px;align-items:flex-start;background:#f0f4ff;border-radius:8px;padding:10px 12px;margin-top:4px}
+.fmt-ai-row textarea{flex:1;min-height:44px;padding:7px 10px;font:inherit;font-size:.82rem;border:1.5px solid #c0cfe8;border-radius:6px;resize:none;background:#fff}
+.fmt-ai-row button{white-space:nowrap;padding:8px 13px;background:#1c3a5e;color:#fff;border:none;border-radius:7px;font:600 .8rem inherit;cursor:pointer;align-self:flex-start}
+.fmt-ai-row button:hover{background:#152d4a}
+.fmt-ai-row button:disabled{background:#9ea3b5;cursor:default}
+.fmt-ai-label{font-size:.72rem;font-weight:700;color:#3a4a6b;white-space:nowrap;padding-top:2px}
+.fmt-msg{font-size:.75rem;grid-column:1/-1;color:#2e7d32;min-height:16px}
+
 /* KI section */
 .ki-section{background:#f3f6ff;border:1.5px solid #c0cfe8;border-radius:10px;padding:16px 18px;margin-bottom:20px}
 .ki-title{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#3a4a6b;margin-bottom:12px}
@@ -46,18 +76,16 @@ hr.div{border:none;border-top:1.5px solid #edf0f5;margin:18px 0}
 .btn-exp{background:#1c3a5e;color:#fff;padding:11px 26px;font-size:.95rem;border-radius:8px}
 .btn-exp:hover{background:#152d4a}
 .status{font-size:.8rem;flex:1}.status.load{color:#1c3a5e}.status.ok{color:#2e7d32}.status.err{color:#c62828}
-.init-note{font-size:.78rem;color:#888;text-align:center;padding:6px 0}
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="hdr">
-    <div>
-      <h1>📄 Lernaufgaben-Ersteller</h1>
-      <p>Vorlage hochladen · Felder ausfüllen · KI-Unterstützung · fertiges .docx herunterladen</p>
+    <div><h1>📄 Lernaufgaben-Ersteller</h1>
+      <p>Vorlage hochladen · Formatierung anpassen · KI-Unterstützung · .docx exportieren</p>
     </div>
-    <div class="model-badge">
-      🧠 <select id="modelSelect"><option value="">Lade Modelle …</option></select>
+    <div class="model-badge">🧠
+      <select id="modelSelect"><option value="">Lade …</option></select>
     </div>
   </div>
   <div class="card">
@@ -65,14 +93,116 @@ hr.div{border:none;border-top:1.5px solid #edf0f5;margin:18px 0}
     <!-- Template Upload -->
     <label class="tpl-zone" for="tplFile">
       <span style="font-size:1.2rem">📎</span>
-      <span class="tpl-text" id="tplText">Vorlage (.docx) hochladen – Formatierungen werden übernommen</span>
+      <span class="tpl-text" id="tplText">Vorlage (.docx) hochladen – Formatierungen werden automatisch erkannt</span>
       <button class="tpl-rm" id="tplRm" onclick="clearTemplate(event)">✕ Entfernen</button>
       <input type="file" id="tplFile" accept=".docx" onchange="handleTemplate(this)">
     </label>
 
+    <!-- Formatierungseinstellungen -->
+    <details class="fmt-section" id="fmtSection">
+      <summary>📐 Formatierungseinstellungen
+        <span class="fmt-tag" id="fmtTag">Standard · zum Anpassen öffnen</span>
+      </summary>
+      <div class="fmt-body">
+        <div class="fmt-grid">
+
+          <!-- KI-Eingabe -->
+          <div class="fmt-ai-row fmt-full">
+            <span class="fmt-ai-label">🤖 KI:</span>
+            <textarea id="fmtAiInput" placeholder="Formatierung beschreiben, z.B. «Titel dunkelblau und fett unterstrichen, Tabelle mit gepunkteten Rahmen und getrennten Spalten, Schrift Calibri 11pt» …"></textarea>
+            <button id="fmtAiBtn" onclick="applyFmtFromAI()">Anwenden</button>
+          </div>
+          <div class="fmt-msg" id="fmtMsg"></div>
+          <hr class="fmt-divider">
+
+          <!-- Schrift -->
+          <div class="fmt-field">
+            <label>Schriftart</label>
+            <select id="fmtFont" onchange="applyFmt()">
+              <option value="">– Standard –</option>
+              <option>Calibri</option><option>Arial</option><option>Arial Narrow</option>
+              <option>Cambria</option><option>Garamond</option><option>Georgia</option>
+              <option>Gill Sans MT</option><option>Helvetica</option><option>Palatino Linotype</option>
+              <option>Times New Roman</option><option>Trebuchet MS</option><option>Verdana</option>
+            </select>
+          </div>
+          <div class="fmt-field">
+            <label>Schriftgrösse</label>
+            <select id="fmtSize" onchange="applyFmt()">
+              <option value="16">8 pt</option><option value="18">9 pt</option>
+              <option value="20">10 pt</option><option value="21">10.5 pt</option>
+              <option value="22" selected>11 pt</option><option value="24">12 pt</option>
+              <option value="26">13 pt</option><option value="28">14 pt</option>
+            </select>
+          </div>
+
+          <hr class="fmt-divider">
+
+          <!-- Titel -->
+          <div class="fmt-field">
+            <label>Titelfarbe</label>
+            <div class="fmt-color-row">
+              <input type="color" id="fmtTitleColor" value="#000000" oninput="syncColorText('fmtTitleColor','fmtTitleColorTxt')" onchange="applyFmt()">
+              <input type="text" id="fmtTitleColorTxt" value="#000000" maxlength="7" placeholder="#000000" oninput="syncColorPicker('fmtTitleColorTxt','fmtTitleColor')" onchange="applyFmt()">
+            </div>
+          </div>
+          <div class="fmt-field">
+            <label>Unterstreichung Titel</label>
+            <select id="fmtUnderline" onchange="applyFmt()">
+              <option value="">Keine</option>
+              <option value="single">Einfach</option>
+              <option value="double">Doppelt</option>
+              <option value="thick">Dick</option>
+              <option value="dash">Gestrichelt</option>
+              <option value="dotted">Gepunktet</option>
+              <option value="pBdr">Absatzrahmen unten</option>
+            </select>
+          </div>
+          <div class="fmt-field">
+            <label>Unterstreichungsfarbe</label>
+            <div class="fmt-color-row">
+              <input type="color" id="fmtUnderlineColor" value="#000000" oninput="syncColorText('fmtUnderlineColor','fmtUnderlineColorTxt')" onchange="applyFmt()">
+              <input type="text" id="fmtUnderlineColorTxt" value="#000000" maxlength="7" placeholder="#000000" oninput="syncColorPicker('fmtUnderlineColorTxt','fmtUnderlineColor')" onchange="applyFmt()">
+            </div>
+          </div>
+          <div class="fmt-check-row fmt-field" style="padding-top:18px">
+            <input type="checkbox" id="fmtTitleBold" checked onchange="applyFmt()">
+            <label for="fmtTitleBold">Titel fett</label>
+          </div>
+
+          <hr class="fmt-divider">
+
+          <!-- Tabelle -->
+          <div class="fmt-field">
+            <label>Tabellenrahmen-Stil</label>
+            <select id="fmtBorderStyle" onchange="applyFmt()">
+              <option value="single">Einfach</option>
+              <option value="dashed">Gestrichelt</option>
+              <option value="dotted">Gepunktet</option>
+              <option value="double">Doppelt</option>
+              <option value="thick">Dick</option>
+              <option value="none">Keine</option>
+            </select>
+          </div>
+          <div class="fmt-field">
+            <label>Rahmenfarbe</label>
+            <div class="fmt-color-row">
+              <input type="color" id="fmtBorderColor" value="#000000" oninput="syncColorText('fmtBorderColor','fmtBorderColorTxt')" onchange="applyFmt()">
+              <input type="text" id="fmtBorderColorTxt" value="#000000" maxlength="7" placeholder="#000000" oninput="syncColorPicker('fmtBorderColorTxt','fmtBorderColor')" onchange="applyFmt()">
+            </div>
+          </div>
+          <div class="fmt-check-row fmt-field">
+            <input type="checkbox" id="fmtCellSpacing" onchange="applyFmt()">
+            <label for="fmtCellSpacing">Getrennte Tabellenspalten</label>
+          </div>
+
+        </div>
+      </div>
+    </details>
+
     <!-- KI Section -->
     <div class="ki-section">
-      <div class="ki-title">🤖 KI-Unterstützung</div>
+      <div class="ki-title">🤖 KI-Unterstützung – Inhalte</div>
       <div class="field">
         <label class="lbl">Thema / Inhaltsbeschreibung</label>
         <textarea id="kiInput" style="min-height:70px" placeholder="z.B. Fotosynthese – Licht- und Dunkelreaktion, Calvin-Zyklus, Chloroplasten. Niveau: Schwerpunktfach Biologie, 4. Klasse Gymnasium …"></textarea>
@@ -91,7 +221,7 @@ hr.div{border:none;border-top:1.5px solid #edf0f5;margin:18px 0}
           <span>Verbesserungshinweise</span>
           <span style="font-weight:400;text-transform:none;letter-spacing:0;color:#888;font-size:.75rem">optional · für Iteration</span>
         </label>
-        <textarea id="kiRefine" style="min-height:55px" placeholder="z.B. «Aufgaben anspruchsvoller, mit Rechenaufgabe» · «Hintergrundtext kürzer» …"></textarea>
+        <textarea id="kiRefine" style="min-height:50px" placeholder="z.B. «Aufgaben anspruchsvoller» · «Hintergrundtext kürzer» …"></textarea>
       </div>
       <div style="margin-top:14px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
         <button class="btn btn-ai" id="aiBtn" onclick="generateWithAI()">✨ Ausgewählte Felder generieren</button>
@@ -113,10 +243,10 @@ hr.div{border:none;border-top:1.5px solid #edf0f5;margin:18px 0}
       <div class="field">
         <label class="lbl">Sozialform</label>
         <div class="sf-group">
-          <label class="sf"><input type="checkbox" value="EA"> Einzelarbeit</label>
-          <label class="sf"><input type="checkbox" value="PA"> Partnerarbeit</label>
-          <label class="sf"><input type="checkbox" value="GA"> Gruppenarbeit</label>
-          <label class="sf"><input type="checkbox" value="PL"> Plenum</label>
+          <label class="sf"><input type="checkbox" value="EA"> 😊 Einzelarbeit</label>
+          <label class="sf"><input type="checkbox" value="PA"> 😊😊 Partnerarbeit</label>
+          <label class="sf"><input type="checkbox" value="GA"> 😊😊😊 Gruppenarbeit</label>
+          <label class="sf"><input type="checkbox" value="PL"> 👥 Plenum</label>
         </div>
       </div>
       <div class="field">
@@ -141,11 +271,11 @@ hr.div{border:none;border-top:1.5px solid #edf0f5;margin:18px 0}
     <hr class="div">
     <div class="field">
       <label class="lbl">Hintergrund</label>
-      <textarea id="hintergrund" style="min-height:110px" placeholder="Fachlicher Hintergrundtext …"></textarea>
+      <textarea id="hintergrund" style="min-height:110px"></textarea>
     </div>
     <div class="field">
       <label class="lbl">Aufgaben</label>
-      <textarea id="aufgaben" style="min-height:140px" placeholder="1. Beschreibe …&#10;2. Erkläre …&#10;3. Berechne …&#10;4. Diskutiere …"></textarea>
+      <textarea id="aufgaben" style="min-height:140px"></textarea>
     </div>
     <div class="foot">
       <button class="btn btn-exp" onclick="exportDocx()">⬇ Als .docx exportieren</button>
@@ -155,9 +285,141 @@ hr.div{border:none;border-top:1.5px solid #edf0f5;margin:18px 0}
 
 <script>
 const $ = id => document.getElementById(id);
-const setMsg = (t,c='') => { $('msg').textContent=t; $('msg').className='status '+c; };
+const SF = { EA:'😊 Einzelarbeit', PA:'😊😊 Partnerarbeit', GA:'😊😊😊 Gruppenarbeit', PL:'👥 Plenum' };
 
-// ── Modelle laden (über eigenen Server-Proxy) ─────────────────────────────
+// ── Document params ───────────────────────────────────────────────────────
+let P = {
+  top:1134, right:1134, bottom:1134, left:1134, pgW:11906, pgH:16838,
+  titleSz:30, headingSz:24, bodySz:22, col1W:2200, col2W:6800,
+  fontName:'', titleColor:'', titleBoldVal:true,
+  titleUnderlineVal:'', titleUnderlineColor:'',
+  tblBorderVal:'single', tblBorderColor:'000000', tblCellSpacing:0
+};
+let tplData = {};
+
+// ── Color helpers ─────────────────────────────────────────────────────────
+const toHex6 = v => (v||'000000').replace('#','').padStart(6,'0');
+const toHash = v => '#'+toHex6(v);
+function syncColorText(pickerId, txtId) {
+  $(txtId).value = $(pickerId).value;
+}
+function syncColorPicker(txtId, pickerId) {
+  const v = $(txtId).value.trim();
+  if (/^#[0-9a-fA-F]{6}$/.test(v)) $(pickerId).value = v;
+}
+
+// ── Sync P ↔ Formatting UI ────────────────────────────────────────────────
+function syncFmtUI() {
+  // Font
+  const sel = $('fmtFont');
+  const opts = [...sel.options].map(o=>o.value);
+  sel.value = opts.includes(P.fontName) ? P.fontName : '';
+  // Size
+  $('fmtSize').value = P.bodySz;
+  // Title color
+  const tc = toHash(P.titleColor||'000000');
+  $('fmtTitleColor').value = tc; $('fmtTitleColorTxt').value = tc;
+  // Title bold
+  $('fmtTitleBold').checked = P.titleBoldVal !== false;
+  // Underline
+  $('fmtUnderline').value = P.titleUnderlineVal||'';
+  const uc = toHash(P.titleUnderlineColor||'000000');
+  $('fmtUnderlineColor').value = uc; $('fmtUnderlineColorTxt').value = uc;
+  // Border
+  $('fmtBorderStyle').value = P.tblBorderVal||'single';
+  const bc = toHash(P.tblBorderColor||'000000');
+  $('fmtBorderColor').value = bc; $('fmtBorderColorTxt').value = bc;
+  // Cell spacing
+  $('fmtCellSpacing').checked = P.tblCellSpacing > 0;
+  // Update tag
+  updateFmtTag();
+}
+
+function applyFmt() {
+  P.fontName         = $('fmtFont').value;
+  P.bodySz           = parseInt($('fmtSize').value)||22;
+  P.titleSz          = Math.round(P.bodySz * 1.45);
+  P.headingSz        = Math.round(P.bodySz * 1.18);
+  P.titleColor       = toHex6($('fmtTitleColor').value);
+  P.titleBoldVal     = $('fmtTitleBold').checked;
+  P.titleUnderlineVal= $('fmtUnderline').value;
+  P.titleUnderlineColor = toHex6($('fmtUnderlineColor').value);
+  P.tblBorderVal     = $('fmtBorderStyle').value;
+  P.tblBorderColor   = toHex6($('fmtBorderColor').value);
+  P.tblCellSpacing   = $('fmtCellSpacing').checked ? 80 : 0;
+  updateFmtTag();
+}
+
+function updateFmtTag() {
+  const parts = [];
+  if (P.fontName)           parts.push(P.fontName);
+  if (P.bodySz)             parts.push(`${P.bodySz/2}pt`);
+  if (P.titleColor && P.titleColor !== '000000') parts.push(`Titel #${P.titleColor}`);
+  if (P.titleUnderlineVal)  parts.push('unterstrichen');
+  if (P.tblCellSpacing > 0) parts.push('getrennte Sp.');
+  $('fmtTag').textContent = parts.length ? parts.join(' · ') : 'Standard · zum Anpassen öffnen';
+}
+
+// ── KI Formatierungs-Assistent ────────────────────────────────────────────
+async function applyFmtFromAI() {
+  const model = getModel(); if (!model) return;
+  const desc = $('fmtAiInput').value.trim();
+  if (!desc) return;
+  const btn = $('fmtAiBtn'); btn.disabled = true;
+  $('fmtMsg').style.color = '#1c3a5e'; $('fmtMsg').textContent = 'Analysiere …';
+
+  const prompt =
+    `Extrahiere Formatierungsparameter aus dieser Beschreibung und gib NUR gültiges JSON zurück (kein Markdown, keine Erklärung):\n`+
+    `"${desc}"\n\nJSON-Schema (null = nicht erwähnt, unverändert lassen):\n`+
+    `{\n`+
+    `  "fontName": "Schriftartname oder null",\n`+
+    `  "bodySzHHP": Schriftgrösse in halben Punkten (z.B. 22 für 11pt) oder null,\n`+
+    `  "titleColor": "6-stelliger Hex ohne # (z.B. 1F3864) oder null",\n`+
+    `  "titleBold": true oder false oder null,\n`+
+    `  "titleUnderlineVal": "none|single|double|thick|dash|dotted|pBdr oder null",\n`+
+    `  "titleUnderlineColor": "6-stelliger Hex ohne # oder null",\n`+
+    `  "tblBorderVal": "single|dashed|dotted|double|thick|none oder null",\n`+
+    `  "tblBorderColor": "6-stelliger Hex ohne # oder null",\n`+
+    `  "tblCellSpacing": true (getrennt) oder false (verbunden) oder null\n`+
+    `}`;
+
+  try {
+    const res  = await fetch('/api/messages', { method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ model, max_tokens:400, messages:[{role:'user',content:prompt}] })
+    });
+    const json = await res.json();
+    if (json.error) throw new Error(json.error.message);
+    const raw  = json.content?.map(b=>b.text||'').join('')||'';
+    const clean = raw.replace(/```json|```/g,'').trim();
+    const params = JSON.parse(clean);
+
+    if (params.fontName !== null && params.fontName !== undefined)
+      P.fontName = params.fontName;
+    if (params.bodySzHHP)
+      { P.bodySz=params.bodySzHHP; P.titleSz=Math.round(P.bodySz*1.45); P.headingSz=Math.round(P.bodySz*1.18); }
+    if (params.titleColor)        P.titleColor = params.titleColor;
+    if (params.titleBold !== null && params.titleBold !== undefined) P.titleBoldVal = params.titleBold;
+    if (params.titleUnderlineVal !== null && params.titleUnderlineVal !== undefined)
+      P.titleUnderlineVal = params.titleUnderlineVal === 'none' ? '' : params.titleUnderlineVal;
+    if (params.titleUnderlineColor) P.titleUnderlineColor = params.titleUnderlineColor;
+    if (params.tblBorderVal)      P.tblBorderVal = params.tblBorderVal;
+    if (params.tblBorderColor)    P.tblBorderColor = params.tblBorderColor;
+    if (params.tblCellSpacing !== null && params.tblCellSpacing !== undefined)
+      P.tblCellSpacing = params.tblCellSpacing ? 80 : 0;
+
+    syncFmtUI();
+    $('fmtAiInput').value = '';
+    $('fmtMsg').style.color = '#2e7d32'; $('fmtMsg').textContent = '✓ Formatierung übernommen';
+    setTimeout(()=>$('fmtMsg').textContent='', 3000);
+    $('fmtSection').open = true;
+  } catch(e) {
+    $('fmtMsg').style.color = '#c62828'; $('fmtMsg').textContent = 'Fehler: '+e.message;
+  }
+  btn.disabled = false;
+}
+
+// ── Models ────────────────────────────────────────────────────────────────
 async function loadModels() {
   const sel = $('modelSelect');
   try {
@@ -166,211 +428,252 @@ async function loadModels() {
     if (json.error) throw new Error(json.error.message);
     const rank = id => /sonnet/i.test(id)?0:/opus/i.test(id)?1:2;
     const models = (json.data||[])
-      .filter(m => /claude-(sonnet|opus|haiku)/i.test(m.id))
-      .sort((a,b) => rank(a.id)-rank(b.id) || b.id.localeCompare(a.id));
-    sel.innerHTML = '';
-    models.forEach(m => {
-      const o = document.createElement('option');
-      o.value = m.id; o.textContent = m.id;
-      sel.appendChild(o);
-    });
-  } catch(e) {
-    sel.innerHTML = `<option value="">Fehler: ${e.message}</option>`;
-  }
+      .filter(m=>/claude-(sonnet|opus|haiku)/i.test(m.id))
+      .sort((a,b)=>rank(a.id)-rank(b.id)||b.id.localeCompare(a.id));
+    sel.innerHTML='';
+    models.forEach(m=>{const o=document.createElement('option');o.value=m.id;o.textContent=m.id;sel.appendChild(o);});
+  } catch(e){ sel.innerHTML=`<option value="">Fehler: ${e.message}</option>`; }
 }
+function getModel(){ const m=$('modelSelect').value; if(!m){setMsg('Kein Modell','err');return null;} return m; }
+const setMsg=(t,c='')=>{$('msg').textContent=t;$('msg').className='status '+c;};
 
-function getModel() {
-  const m = $('modelSelect').value;
-  if (!m) { setMsg('Kein Modell verfügbar','err'); return null; }
-  return m;
-}
-
-// ── Template handling ─────────────────────────────────────────────────────
-let tplData = {};
-let P = { top:1134,right:1134,bottom:1134,left:1134,pgW:11906,pgH:16838,titleSz:30,headingSz:24,bodySz:20,col1W:2200,col2W:6800 };
-
-const DEFAULT_STYLES =
-`<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<w:styles xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
-  <w:docDefaults><w:rPrDefault><w:rPr>
-    <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
-    <w:lang w:val="de-CH"/>
-  </w:rPr></w:rPrDefault></w:docDefaults>
-</w:styles>`;
-
+// ── Template ──────────────────────────────────────────────────────────────
 async function handleTemplate(input) {
   const file = input.files[0]; if (!file) return;
   const txt = $('tplText');
-  txt.textContent = 'Lese Vorlage …'; txt.className = 'tpl-text';
+  txt.textContent='Lese Vorlage …'; txt.className='tpl-text';
   try {
-    const zip = new JSZip(), loaded = await zip.loadAsync(file);
-    const rd = async p => loaded.files[p] ? loaded.files[p].async('string') : null;
-    const docXml = await rd('word/document.xml') || '';
-    const stylesXml = await rd('word/styles.xml');
-    const themeXml  = await rd('word/theme/theme1.xml');
-    const params = extractParams(docXml, stylesXml);
-    tplData = { stylesXml, themeXml, params };
+    const zip=new JSZip(), loaded=await zip.loadAsync(file);
+    const rd=async p=>loaded.files[p]?loaded.files[p].async('string'):null;
+    const docXml=await rd('word/document.xml')||'';
+    const stylesXml=await rd('word/styles.xml');
+    const themeXml=await rd('word/theme/theme1.xml');
+    const params=extractParams(docXml,stylesXml);
+    tplData={stylesXml,themeXml,params};
     Object.assign(P, params);
-    txt.innerHTML = `✓ <strong>${file.name}</strong> – Formatierung wird übernommen`;
-    txt.className = 'tpl-text ok';
-    $('tplRm').style.display = 'inline';
-  } catch(e) { txt.textContent = 'Fehler: ' + e.message; }
+    syncFmtUI();
+    $('fmtSection').open = true; // open formatting panel to show what was detected
+    txt.innerHTML=`✓ <strong>${file.name}</strong> – Formatierungen erkannt`;
+    txt.className='tpl-text ok';
+    $('tplRm').style.display='inline';
+  } catch(e){ txt.textContent='Fehler: '+e.message; }
 }
 
 function clearTemplate(e) {
   e.preventDefault();
-  tplData = {};
-  P = { top:1134,right:1134,bottom:1134,left:1134,pgW:11906,pgH:16838,titleSz:30,headingSz:24,bodySz:20,col1W:2200,col2W:6800 };
-  $('tplFile').value = '';
-  $('tplText').textContent = 'Vorlage (.docx) hochladen – Formatierungen werden übernommen';
-  $('tplText').className = 'tpl-text';
-  $('tplRm').style.display = 'none';
+  tplData={};
+  P={top:1134,right:1134,bottom:1134,left:1134,pgW:11906,pgH:16838,
+    titleSz:30,headingSz:24,bodySz:22,col1W:2200,col2W:6800,
+    fontName:'',titleColor:'',titleBoldVal:true,titleUnderlineVal:'',titleUnderlineColor:'',
+    tblBorderVal:'single',tblBorderColor:'000000',tblCellSpacing:0};
+  syncFmtUI();
+  $('tplFile').value='';
+  $('tplText').textContent='Vorlage (.docx) hochladen – Formatierungen werden automatisch erkannt';
+  $('tplText').className='tpl-text'; $('tplRm').style.display='none';
 }
 
 function extractParams(docXml, stylesXml) {
-  const p = {...P};
-  const mgr = docXml.match(/<w:pgMar\b([^>]*?)\/?>/);
-  if (mgr) for (const k of ['top','right','bottom','left']) {
-    const m = mgr[1].match(new RegExp(`w:${k}="(\\d+)"`));
-    if (m) p[k] = parseInt(m[1]);
+  const p={...P};
+  // Margins
+  const mgr=docXml.match(/<w:pgMar\b([^>]*?)\/?>/);
+  if(mgr) for(const k of['top','right','bottom','left']){
+    const m=mgr[1].match(new RegExp(`w:${k}="(\\d+)"`));if(m)p[k]=parseInt(m[1]);
   }
-  const psz = docXml.match(/<w:pgSz\b([^>]*?)\/?>/);
-  if (psz) {
-    const w=psz[1].match(/w:w="(\d+)"/)?.[1], h=psz[1].match(/w:h="(\d+)"/)?.[1];
-    if(w) p.pgW=parseInt(w); if(h) p.pgH=parseInt(h);
-  }
-  const cols = [...docXml.matchAll(/<w:gridCol\b[^>]*?w:w="(\d+)"/g)];
-  if (cols.length>=2) {
-    p.col1W=parseInt(cols[0][1]);
-    p.col2W=cols.slice(1).reduce((s,c)=>s+parseInt(c[1]),0);
-  } else {
-    const tw=p.pgW-p.left-p.right; p.col1W=Math.round(tw*.25); p.col2W=tw-p.col1W;
-  }
-  if (stylesXml) {
+  // Page size
+  const psz=docXml.match(/<w:pgSz\b([^>]*?)\/?>/);
+  if(psz){const w=psz[1].match(/w:w="(\d+)"/)?.[1],h=psz[1].match(/w:h="(\d+)"/)?.[1];
+    if(w)p.pgW=parseInt(w);if(h)p.pgH=parseInt(h);}
+  // Font from styles
+  if(stylesXml){
     const nm=stylesXml.match(/<w:style\b[^>]*w:styleId="Normal"[\s\S]*?<\/w:style>/);
-    if (nm) { const sz=nm[0].match(/<w:sz\b[^>]*w:val="(\d+)"/)?.[1];
-      if(sz){const s=parseInt(sz); p.bodySz=s; p.titleSz=Math.round(s*1.5); p.headingSz=Math.round(s*1.2);}
-    }
+    const src=nm?nm[0]:stylesXml;
+    const font=src.match(/<w:rFonts\b[^>]*w:ascii="([^"]+)"/)?.[1];
+    if(font)p.fontName=font;
+    const sz=nm?.[0]?.match(/<w:sz\b[^>]*w:val="(\d+)"/)?.[1];
+    if(sz){const s=parseInt(sz);p.bodySz=s;p.titleSz=Math.round(s*1.45);p.headingSz=Math.round(s*1.18);}
   }
+  // Title formatting from first body content before table
+  const titleArea=docXml.match(/<w:body[^>]*>([\s\S]*?)<w:tbl/)?.[1]||'';
+  if(titleArea){
+    const uEl=titleArea.match(/<w:u\b([^>]*?)\/?>/);
+    if(uEl){const uv=uEl[1].match(/w:val="([^"]+)"/)?.[1],uc=uEl[1].match(/w:color="([^"]+)"/)?.[1];
+      if(uv&&uv!=='none')p.titleUnderlineVal=uv;if(uc&&uc!=='auto')p.titleUnderlineColor=uc;}
+    const pBdr=titleArea.match(/<w:pBdr[\s\S]*?<\/w:pBdr>/);
+    if(pBdr&&!p.titleUnderlineVal){
+      const bot=pBdr[0].match(/<w:bottom\b([^>]*?)\/?>/);
+      if(bot){const bv=bot[1].match(/w:val="([^"]+)"/)?.[1],bc=bot[1].match(/w:color="([^"]+)"/)?.[1];
+        if(bv&&bv!=='none'){p.titleUnderlineVal='pBdr';if(bc&&bc!=='auto')p.titleUnderlineColor=bc;}}}
+    const color=titleArea.match(/<w:color\b[^>]*w:val="([A-Fa-f0-9]{6})"/)?.[1];
+    if(color)p.titleColor=color;
+    const bold=titleArea.match(/<w:b\/>/);
+    p.titleBoldVal=!!bold;
+  }
+  // Table columns
+  const cols=[...docXml.matchAll(/<w:gridCol\b[^>]*?w:w="(\d+)"/g)];
+  if(cols.length>=2){p.col1W=parseInt(cols[0][1]);p.col2W=cols.slice(1).reduce((s,c)=>s+parseInt(c[1]),0);}
+  else{const tw=p.pgW-p.left-p.right;p.col1W=Math.round(tw*.25);p.col2W=tw-p.col1W;}
+  // Cell spacing
+  const cs=docXml.match(/<w:tblCellSpacing\b[^>]*w:w="(\d+)"/)?.[1];
+  if(cs)p.tblCellSpacing=parseInt(cs);
+  // Border color/style
+  const tblBrd=docXml.match(/<w:tblBorders[\s\S]*?<\/w:tblBorders>/);
+  if(tblBrd){
+    const bc=tblBrd[0].match(/w:color="([A-Fa-f0-9]{6})"/)?.[1];if(bc)p.tblBorderColor=bc;
+    const bv=tblBrd[0].match(/w:val="([^"]+)"/)?.[1];if(bv)p.tblBorderVal=bv;}
   return p;
 }
 
-// ── Form helpers ──────────────────────────────────────────────────────────
-function getData() {
-  const sf=[...document.querySelectorAll('.sf input:checked')].map(c=>c.value).join(' / ')||'–';
-  return { titel:$('titel').value.trim(), lernziele:$('lernziele').value.trim(),
-    sozialform:sf, lernort:$('lernort').value.trim(), zeit:$('zeit').value.trim(),
-    material:$('material').value.trim(), produkte:$('produkte').value.trim(),
-    hintergrund:$('hintergrund').value.trim(), aufgaben:$('aufgaben').value.trim() };
+// ── Form data ─────────────────────────────────────────────────────────────
+function getData(){
+  const sf=[...document.querySelectorAll('.sf input:checked')].map(c=>SF[c.value]||c.value).join('   ')||'–';
+  return{titel:$('titel').value.trim(),lernziele:$('lernziele').value.trim(),
+    sozialform:sf,lernort:$('lernort').value.trim(),zeit:$('zeit').value.trim(),
+    material:$('material').value.trim(),produkte:$('produkte').value.trim(),
+    hintergrund:$('hintergrund').value.trim(),aufgaben:$('aufgaben').value.trim()};
 }
 
-// ── KI Generation ─────────────────────────────────────────────────────────
-async function generateWithAI() {
-  const model = getModel(); if (!model) return;
-  const desc = $('kiInput').value.trim();
-  if (!desc) { setMsg('Thema/Inhaltsbeschreibung fehlt','err'); return; }
-  const sel = [...document.querySelectorAll('.gen-chip input:checked')].map(c=>c.value);
-  if (!sel.length) { setMsg('Mindestens ein Feld wählen','err'); return; }
-  $('aiBtn').disabled=true; setMsg('Generiere …','load');
-
-  const fi = {
+// ── KI Inhalte ────────────────────────────────────────────────────────────
+async function generateWithAI(){
+  const model=getModel();if(!model)return;
+  const desc=$('kiInput').value.trim();
+  if(!desc){setMsg('Thema fehlt','err');return;}
+  const sel=[...document.querySelectorAll('.gen-chip input:checked')].map(c=>c.value);
+  if(!sel.length){setMsg('Mindestens ein Feld wählen','err');return;}
+  $('aiBtn').disabled=true;setMsg('Generiere …','load');
+  const fi={
     titel:      'TITEL:\nEin prägnanter Titel (max. 1 Zeile).',
     lernziele:  'LERNZIELE:\n3–5 Lernziele im Format "Die SuS können/kennen/verstehen …", eine pro Zeile.',
     hintergrund:'HINTERGRUND:\nKnapper fachlicher Hintergrundtext (3–5 Sätze).',
     aufgaben:   'AUFGABEN:\n4–6 variantenreiche Aufgaben (nummeriert als "1. …", "2. …" usw.).'
   };
-  const refinement=$('kiRefine').value.trim();
+  const ref=$('kiRefine').value.trim();
   const exCtx=[];
-  if(!sel.includes('titel')     && $('titel').value.trim())     exCtx.push(`Titel: ${$('titel').value.trim()}`);
-  if(!sel.includes('lernziele') && $('lernziele').value.trim()) exCtx.push(`Lernziele:\n${$('lernziele').value.trim()}`);
+  if(!sel.includes('titel')&&$('titel').value.trim())exCtx.push(`Titel: ${$('titel').value.trim()}`);
+  if(!sel.includes('lernziele')&&$('lernziele').value.trim())exCtx.push(`Lernziele:\n${$('lernziele').value.trim()}`);
   const curCtx=[];
-  if(refinement){
-    const cur=getData();
-    if(sel.includes('titel')       && cur.titel)       curCtx.push(`Aktueller Titel:\n${cur.titel}`);
-    if(sel.includes('lernziele')   && cur.lernziele)   curCtx.push(`Aktuelle Lernziele:\n${cur.lernziele}`);
-    if(sel.includes('hintergrund') && cur.hintergrund) curCtx.push(`Aktueller Hintergrund:\n${cur.hintergrund}`);
-    if(sel.includes('aufgaben')    && cur.aufgaben)    curCtx.push(`Aktuelle Aufgaben:\n${cur.aufgaben}`);
-  }
-  const prompt =
+  if(ref){const cur=getData();
+    if(sel.includes('titel')&&cur.titel)curCtx.push(`Aktueller Titel:\n${cur.titel}`);
+    if(sel.includes('lernziele')&&cur.lernziele)curCtx.push(`Aktuelle Lernziele:\n${cur.lernziele}`);
+    if(sel.includes('hintergrund')&&cur.hintergrund)curCtx.push(`Aktueller Hintergrund:\n${cur.hintergrund}`);
+    if(sel.includes('aufgaben')&&cur.aufgaben)curCtx.push(`Aktuelle Aufgaben:\n${cur.aufgaben}`);}
+  const prompt=
     `Du bist Chemie- und Biologielehrer an einem Schweizer Gymnasium.\n`+
     `Themen-/Inhaltsbeschreibung:\n«${desc}»\n`+
-    (exCtx.length  ? `\nBestehender Kontext:\n${exCtx.join('\n')}\n` : '')+
-    (curCtx.length ? `\nBisheriger Inhalt zur Überarbeitung:\n${curCtx.join('\n\n')}\n` : '')+
-    (refinement    ? `\nVerbesserungsanweisung:\n${refinement}\n` : '')+
-    `\n${refinement?'Überarbeite':'Erstelle'} auf Deutsch:\n\n`+
+    (exCtx.length?`\nBestehender Kontext:\n${exCtx.join('\n')}\n`:'')+
+    (curCtx.length?`\nBisheriger Inhalt zur Überarbeitung:\n${curCtx.join('\n\n')}\n`:'')+
+    (ref?`\nVerbesserungsanweisung:\n${ref}\n`:'')+
+    `\n${ref?'Überarbeite':'Erstelle'} auf Deutsch:\n\n`+
     sel.map(k=>fi[k]).join('\n\n')+
     `\n\nNur das angeforderte Format, keine Einleitung, kein Markdown:\n`+
     sel.map(k=>`${k.toUpperCase()}:\n[Inhalt]`).join('\n\n');
-  try {
-    const res  = await fetch('/api/messages', {
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ model, max_tokens:1000, messages:[{role:'user',content:prompt}] })
-    });
-    const json = await res.json();
-    if (json.error) throw new Error(json.error.message);
-    const text = json.content?.map(b=>b.text||'').join('')||'';
-    const extract = key => {
-      const re=new RegExp(`${key.toUpperCase()}:\\s*([\\s\\S]*?)(?=\\n[A-ZÄÖÜ]{3,}:|$)`,'i');
-      return text.match(re)?.[1]?.trim()||null;
-    };
+  try{
+    const res=await fetch('/api/messages',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model,max_tokens:1000,messages:[{role:'user',content:prompt}]})});
+    const json=await res.json();
+    if(json.error)throw new Error(json.error.message);
+    const text=json.content?.map(b=>b.text||'').join('')||'';
+    const extract=key=>{const re=new RegExp(`${key.toUpperCase()}:\\s*([\\s\\S]*?)(?=\\n[A-ZÄÖÜ]{3,}:|$)`,'i');return text.match(re)?.[1]?.trim()||null;};
     let filled=[];
-    for(const key of sel){const v=extract(key); if(v){$(key).value=v; filled.push(key);}}
-    setMsg(filled.length?`✓ Generiert: ${filled.join(', ')} – bitte prüfen.`:'Antwort konnte nicht geparst werden.',filled.length?'ok':'err');
-  } catch(e){ setMsg('Fehler: '+e.message,'err'); }
+    for(const key of sel){const v=extract(key);if(v){$(key).value=v;filled.push(key);}}
+    setMsg(filled.length?`✓ Generiert: ${filled.join(', ')} – bitte prüfen.`:'Parsen fehlgeschlagen.',filled.length?'ok':'err');
+  }catch(e){setMsg('Fehler: '+e.message,'err');}
   $('aiBtn').disabled=false;
 }
 
 // ── OOXML ─────────────────────────────────────────────────────────────────
-const X = s=>(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-const emptyP=()=>`<w:p><w:pPr><w:spacing w:after="80"/></w:pPr><w:r><w:rPr><w:sz w:val="${P.bodySz}"/></w:rPr><w:t> </w:t></w:r></w:p>`;
+const X=s=>(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const fnt=()=>P.fontName?`<w:rFonts w:ascii="${P.fontName}" w:hAnsi="${P.fontName}" w:cs="${P.fontName}"/>`:'';
+const rPr=(extra='')=>`<w:rPr>${fnt()}${extra}</w:rPr>`;
+const emptyP=()=>`<w:p><w:pPr><w:spacing w:after="80"/></w:pPr><w:r>${rPr(`<w:sz w:val="${P.bodySz}"/>`)}<w:t> </w:t></w:r></w:p>`;
 const bodyParas=text=>{
   const lines=(text||'').split('\n');
-  if(!lines.some(l=>l.trim())) return emptyP();
-  return lines.map(l=>`<w:p><w:pPr><w:spacing w:after="80"/></w:pPr><w:r><w:rPr><w:sz w:val="${P.bodySz}"/><w:szCs w:val="${P.bodySz}"/></w:rPr><w:t xml:space="preserve">${X(l)||' '}</w:t></w:r></w:p>`).join('');
+  if(!lines.some(l=>l.trim()))return emptyP();
+  return lines.map(l=>`<w:p><w:pPr><w:spacing w:after="80"/></w:pPr><w:r>`+
+    rPr(`<w:sz w:val="${P.bodySz}"/><w:szCs w:val="${P.bodySz}"/>`)+
+    `<w:t xml:space="preserve">${X(l)||' '}</w:t></w:r></w:p>`).join('');
 };
-const heading=text=>`<w:p><w:pPr><w:spacing w:before="280" w:after="80"/></w:pPr><w:r><w:rPr><w:b/><w:sz w:val="${P.headingSz}"/><w:szCs w:val="${P.headingSz}"/></w:rPr><w:t xml:space="preserve">${X(text)}</w:t></w:r></w:p>`;
+const heading=text=>{
+  const pBdrXml=P.titleUnderlineVal==='pBdr'
+    ?`<w:pBdr><w:bottom w:val="single" w:sz="6" w:space="1" w:color="${P.titleUnderlineColor||'auto'}"/></w:pBdr>`:'';
+  return `<w:p><w:pPr><w:spacing w:before="280" w:after="80"/>${pBdrXml}</w:pPr><w:r>`+
+    rPr(`<w:b/><w:sz w:val="${P.headingSz}"/><w:szCs w:val="${P.headingSz}"/>`)+
+    `<w:t xml:space="preserve">${X(text)}</w:t></w:r></w:p>`;
+};
 const tblRow=(label,value)=>{
-  const cell=(w,c)=>`<w:tc><w:tcPr><w:tcW w:w="${w}" w:type="dxa"/><w:tcMar><w:top w:w="80" w:type="dxa"/><w:left w:w="100" w:type="dxa"/><w:bottom w:w="80" w:type="dxa"/><w:right w:w="100" w:type="dxa"/></w:tcMar></w:tcPr>${c}</w:tc>`;
-  const lc=cell(P.col1W,`<w:p><w:pPr><w:spacing w:after="60"/></w:pPr><w:r><w:rPr><w:b/><w:sz w:val="${P.bodySz}"/><w:szCs w:val="${P.bodySz}"/></w:rPr><w:t xml:space="preserve">${X(label)}</w:t></w:r></w:p>`);
-  const cc=(value||'–').split('\n').map(l=>`<w:p><w:pPr><w:spacing w:after="60"/></w:pPr><w:r><w:rPr><w:sz w:val="${P.bodySz}"/><w:szCs w:val="${P.bodySz}"/></w:rPr><w:t xml:space="preserve">${X(l)||' '}</w:t></w:r></w:p>`).join('');
+  const bv=P.tblBorderVal==='none'?'nil':P.tblBorderVal;
+  const brd=tag=>`<w:${tag} w:val="${bv}" w:sz="4" w:space="0" w:color="${P.tblBorderColor}"/>`;
+  const cellBrd=`<w:tcBorders>${['top','left','bottom','right'].map(brd).join('')}</w:tcBorders>`;
+  const cell=(w,c)=>`<w:tc><w:tcPr><w:tcW w:w="${w}" w:type="dxa"/>`+
+    `<w:tcMar><w:top w:w="80" w:type="dxa"/><w:left w:w="100" w:type="dxa"/>`+
+    `<w:bottom w:w="80" w:type="dxa"/><w:right w:w="100" w:type="dxa"/></w:tcMar>`+
+    cellBrd+`</w:tcPr>${c}</w:tc>`;
+  const lc=cell(P.col1W,`<w:p><w:pPr><w:spacing w:after="60"/></w:pPr><w:r>`+
+    rPr(`<w:b/><w:sz w:val="${P.bodySz}"/><w:szCs w:val="${P.bodySz}"/>`)+
+    `<w:t xml:space="preserve">${X(label)}</w:t></w:r></w:p>`);
+  const cc=(value||'–').split('\n').map(l=>`<w:p><w:pPr><w:spacing w:after="60"/></w:pPr><w:r>`+
+    rPr(`<w:sz w:val="${P.bodySz}"/><w:szCs w:val="${P.bodySz}"/>`)+
+    `<w:t xml:space="preserve">${X(l)||' '}</w:t></w:r></w:p>`).join('');
   return `<w:tr>${lc}${cell(P.col2W,cc)}</w:tr>`;
 };
 
-function buildDocXML(d) {
-  const brd=tag=>`<w:${tag} w:val="single" w:sz="4" w:space="0" w:color="000000"/>`;
-  const borders=`<w:tblBorders>${['top','left','bottom','right','insideH','insideV'].map(brd).join('')}</w:tblBorders>`;
+function buildDocXML(d){
+  const bv=P.tblBorderVal==='none'?'nil':P.tblBorderVal;
+  const brd=tag=>`<w:${tag} w:val="${bv}" w:sz="4" w:space="0" w:color="${P.tblBorderColor}"/>`;
+  const tblBorders=P.tblCellSpacing>0
+    ?`<w:tblBorders>${['top','left','bottom','right'].map(brd).join('')}</w:tblBorders>`
+    :`<w:tblBorders>${['top','left','bottom','right','insideH','insideV'].map(brd).join('')}</w:tblBorders>`;
+  const csXml=P.tblCellSpacing>0?`<w:tblCellSpacing w:w="${P.tblCellSpacing}" w:type="dxa"/>`:'';
   const tblW=P.col1W+P.col2W;
-  const table=`<w:tbl><w:tblPr><w:tblW w:w="${tblW}" w:type="dxa"/>${borders}</w:tblPr><w:tblGrid><w:gridCol w:w="${P.col1W}"/><w:gridCol w:w="${P.col2W}"/></w:tblGrid>${tblRow('Lernziele',d.lernziele||'–')}${tblRow('Sozialform',d.sozialform)}${tblRow('Lernort',d.lernort||'–')}${tblRow('Zeit',d.zeit||'–')}${tblRow('Material / Hilfsmittel',d.material||'–')}${tblRow('Produkte',d.produkte||'–')}</w:tbl>`;
-  const titlePara=`<w:p><w:pPr><w:jc w:val="center"/><w:spacing w:before="0" w:after="220"/></w:pPr><w:r><w:rPr><w:b/><w:sz w:val="${P.titleSz}"/><w:szCs w:val="${P.titleSz}"/></w:rPr><w:t>Lernaufgabe \u00AB${X(d.titel||'…')}\u00BB</w:t></w:r></w:p>`;
-  const sectPr=`<w:sectPr><w:pgSz w:w="${P.pgW}" w:h="${P.pgH}"/><w:pgMar w:top="${P.top}" w:right="${P.right}" w:bottom="${P.bottom}" w:left="${P.left}" w:header="0" w:footer="0"/></w:sectPr>`;
-  return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body>${titlePara}${table}${heading('Hintergrund:')}${bodyParas(d.hintergrund||'–')}${heading('Aufgaben:')}${bodyParas(d.aufgaben||'–')}${emptyP()}${sectPr}</w:body></w:document>`;
+  const table=`<w:tbl><w:tblPr><w:tblW w:w="${tblW}" w:type="dxa"/>${csXml}${tblBorders}</w:tblPr>`+
+    `<w:tblGrid><w:gridCol w:w="${P.col1W}"/><w:gridCol w:w="${P.col2W}"/></w:tblGrid>`+
+    tblRow('Lernziele',d.lernziele||'–')+tblRow('Sozialform',d.sozialform)+
+    tblRow('Lernort',d.lernort||'–')+tblRow('Zeit',d.zeit||'–')+
+    tblRow('Material / Hilfsmittel',d.material||'–')+tblRow('Produkte',d.produkte||'–')+`</w:tbl>`;
+  const tcol=P.titleColor&&P.titleColor!=='000000'?`<w:color w:val="${P.titleColor}"/>`:'';
+  const tund=P.titleUnderlineVal&&P.titleUnderlineVal!=='pBdr'
+    ?`<w:u w:val="${P.titleUnderlineVal}"${P.titleUnderlineColor?` w:color="${P.titleUnderlineColor}"`:''}/>`:'';
+  const tpBdr=P.titleUnderlineVal==='pBdr'
+    ?`<w:pBdr><w:bottom w:val="single" w:sz="6" w:space="1" w:color="${P.titleUnderlineColor||'auto'}"/></w:pBdr>`:'';
+  const tbold=P.titleBoldVal?'<w:b/>':'';
+  const titlePara=`<w:p><w:pPr><w:jc w:val="center"/><w:spacing w:before="0" w:after="220"/>${tpBdr}</w:pPr><w:r>`+
+    rPr(`${tbold}${tcol}${tund}<w:sz w:val="${P.titleSz}"/><w:szCs w:val="${P.titleSz}"/>`)+
+    `<w:t>Lernaufgabe \u00AB${X(d.titel||'…')}\u00BB</w:t></w:r></w:p>`;
+  const sectPr=`<w:sectPr><w:pgSz w:w="${P.pgW}" w:h="${P.pgH}"/>`+
+    `<w:pgMar w:top="${P.top}" w:right="${P.right}" w:bottom="${P.bottom}" w:left="${P.left}" w:header="0" w:footer="0"/></w:sectPr>`;
+  return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>`+
+    `<w:document xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" `+
+    `xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body>`+
+    titlePara+table+heading('Hintergrund:')+bodyParas(d.hintergrund||'–')+
+    heading('Aufgaben:')+bodyParas(d.aufgaben||'–')+emptyP()+sectPr+`</w:body></w:document>`;
 }
 
-async function exportDocx() {
-  const d=getData();
-  if(!d.titel){alert('Bitte zuerst einen Titel eingeben.');return;}
-  try {
-    const stylesXml=tplData.stylesXml||DEFAULT_STYLES;
-    const hasTheme=!!tplData.themeXml;
+const DEFAULT_STYLES=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<w:styles xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
+  <w:docDefaults><w:rPrDefault><w:rPr>
+    <w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/>
+    <w:lang w:val="de-CH"/>
+  </w:rPr></w:rPrDefault></w:docDefaults></w:styles>`;
+
+async function exportDocx(){
+  const d=getData();if(!d.titel){alert('Bitte zuerst einen Titel eingeben.');return;}
+  try{
+    const stylesXml=tplData.stylesXml||DEFAULT_STYLES,hasTheme=!!tplData.themeXml;
     const zip=new JSZip();
-    zip.file('[Content_Types].xml',
-      `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/><Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/>${hasTheme?'<Override PartName="/word/theme/theme1.xml" ContentType="application/vnd.openxmlformats-officedocument.theme+xml"/>':''}</Types>`);
-    zip.file('_rels/.rels',
-      `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>`);
-    zip.file('word/_rels/document.xml.rels',
-      `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>${hasTheme?'<Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/theme" Target="theme/theme1.xml"/>':''}</Relationships>`);
-    zip.file('word/document.xml', buildDocXML(d));
-    zip.file('word/styles.xml', stylesXml);
-    if(hasTheme) zip.file('word/theme/theme1.xml', tplData.themeXml);
+    zip.file('[Content_Types].xml',`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/><Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/>${hasTheme?'<Override PartName="/word/theme/theme1.xml" ContentType="application/vnd.openxmlformats-officedocument.theme+xml"/>':''}</Types>`);
+    zip.file('_rels/.rels',`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>`);
+    zip.file('word/_rels/document.xml.rels',`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>${hasTheme?'<Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/theme" Target="theme/theme1.xml"/>':''}</Relationships>`);
+    zip.file('word/document.xml',buildDocXML(d));
+    zip.file('word/styles.xml',stylesXml);
+    if(hasTheme)zip.file('word/theme/theme1.xml',tplData.themeXml);
     const blob=await zip.generateAsync({type:'blob',mimeType:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
     const a=document.createElement('a');
     a.href=URL.createObjectURL(blob);
     a.download=`Lernaufgabe_${(d.titel.replace(/[^a-zA-Z0-9äöüÄÖÜ\- ]/g,'').trim()||'Neu').slice(0,50)}.docx`;
-    a.click(); URL.revokeObjectURL(a.href);
-  } catch(e){ alert('Export-Fehler: '+e.message); }
+    a.click();URL.revokeObjectURL(a.href);
+  }catch(e){alert('Export-Fehler: '+e.message);}
 }
 
-window.addEventListener('DOMContentLoaded', loadModels);
+window.addEventListener('DOMContentLoaded',()=>{loadModels();syncFmtUI();});
 </script>
 </body>
 </html>
